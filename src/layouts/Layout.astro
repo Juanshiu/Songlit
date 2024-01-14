@@ -1,9 +1,12 @@
 ---
 interface Props {
 	title: string;
+	description: string;
 }
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
+import Header from '../components/Layout/Header.astro';
+import '@fontsource-variable/onest';
 ---
 
 <!doctype html>
@@ -12,40 +15,76 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="description" content={description}>
+		<link rel="icon" type="image/svg+xml" href="/songlit.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
-		<slot />
+
+	<body class="">
+		<div class="background"><div></div></div>
+		<Header />
+		<main class="">
+			<slot />
+		</main>
+
 	</body>
+
 </html>
+
+
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
+	
 	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
+		font-family: 'Onest Variable', sans-serif;
+		scroll-behavior: smooth;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+
+	.background {
+		z-index: -10;
+		filter: blur(100px);
+		top: -250px;
+		left: -200px;
+		width: 700px;
+		height: 700px;
+		border-radius: 50%;
+		position: absolute;
+		background: rgb(89, 0, 255);
+	}
+
+	.background::after {
+		content: '';
+		filter: blur(1px);
+		top: 0;
+		left: 90px;
+		width: 450px;
+		height: 450px;
+		border-radius: 50%;
+		position: absolute;
+		background: rgb(255, 79, 231);
+	}
+	.background div {
+		filter: blur(1px);
+		top: 350px;
+		left: -100px;
+		width: 400px;
+		height: 400px;
+		border-radius: 50%;
+		position: absolute;
+		background: rgb(0, 254, 241);
+		z-index: -9;
+	}
+
+	body {
+		position: relative;
+		background: #000000;
+		display: flex;
+		flex-direction: column;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html {
+		scroll-behavior: auto;
+		}
 	}
 </style>
