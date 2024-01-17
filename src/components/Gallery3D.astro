@@ -1,58 +1,73 @@
-<div class="images">
-    <img src="img/badb.jpeg" alt="">
-    <img src="img/booming.webp" alt="">
-    <img src="img/drake.png" alt="">
-    <img src="img/taylor.png" alt="">
-    <img src="img/tainy.jpg" alt="">
-    <img src="img/mora.jpeg" alt="">
+<div class="container">
+    <div class="images">
+        <img src="img/badb.jpeg" alt="">
+        <img src="img/booming.webp" alt="">
+        <img src="img/drake.png" alt="">
+        <img src="img/taylor.png" alt="">
+        <img src="img/tainy.jpg" alt="">
+        <img src="img/mora.jpeg" alt="">
+        <img src="img/jung.png" alt="">
+    </div>
 </div>
 
 <style>
     img {
         position: absolute;
-        width: 150px;
-        height: 150px;
+        width: 170px;
+        height: 170px;
     }
     .container {
-        width: 100%;
-        height: 100%;
+        bottom: 19rem;
+        right: 12rem;
+        transform: rotateX(-15deg) rotatez(-20deg);
+        width: 150px;
+        height: 150px;
         margin-top: 15%;
         margin-left: 40%;
         position: relative;
-        perspective: 10 00px;
+        perspective: 1000px;
         transform-style: preserve-3d;
-        transform: rotateX(-10deg) rotateZ(rotateX(-10deg));
     }
     .images {
-        
         width: 100%;
         height: 100%;
         position: absolute;
         transform-style: preserve-3d;
         animation: rotate 20s infinite linear;
     }
-    img:nth-child(1) {
-        transform: rotateY(60deg) translateZ(300px);
-    }
-    img:nth-child(2) {
-        transform: rotateY(120deg) translateZ(300px);
-    }
-    img:nth-child(3) {
-        transform: rotateY(180deg) translateZ(300px);
-    }
-    img:nth-child(4) {
-        transform: rotateY(240deg) translateZ(300px);
-    }
-    img:nth-child(5) {
-        transform: rotateY(300deg) translateZ(300px);
-    }
-    img:nth-child(6) {
-        transform: rotateY(360deg) translateZ(300px);
-    }
 
     @keyframes rotate {
         to {
             transform: rotateY(360deg);
         }
+    }
+    
+    img:nth-child(1) {
+        transform: rotateY(60deg) translateZ(200px);
+    }
+    img:nth-child(2) {
+        transform: rotateY(120deg) translateZ(200px);
+    }
+    img:nth-child(3) {
+        transform: rotateY(180deg) translateZ(200px);
+    }
+    img:nth-child(4) {
+        transform: rotateY(240deg) translateZ(200px);
+    }
+    img:nth-child(5) {
+        transform: rotateY(300deg) translateZ(200px);
+    }
+    img:nth-child(6) {
+        transform: rotateY(360deg) translateZ(200px);
+    }
+    img:nth-child(7) {
+        transform: rotateY(420deg) translateZ(200px);
+    }
+
+    @media screen and (max-width: 768px) {
+        .container {
+        bottom: 24rem;
+        right: 14rem;
+    }
     }
 </style>

@@ -4,49 +4,95 @@ import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
 import ScrollText  from "../components/textscroll.astro";
 import Gallery3D from "../components/Gallery3D.astro";
+import Video from "../components/Video.astro";
+import Card from "../components/Cards.astro";
 ---
 
 <Layout title="Songlit" description='Biblioteca de Artistas, Caciones y Discografía '>
+<div class="background"><div></div></div>   
+    <main>
 
-    <Section id="inicio" class=" flex flex-col lg:flex-row mt-12 sm:px-4 xl:p-0 ">
+        <Section id="inicio" class=" flex flex-col lg:flex-row mt-32 px-6 xl:p-0 gap-8">
 
-        <article class=" w-full h-auto flex flex-col justify-center text-white ">
-    
-            <div class=" animate-fade-right animate-ease-out animate-delay-200" >
-                <h3 class="animate-charcter  text-9xl font-semibold text-left"> SonGlit</h3>
-            </div>
+            <article class=" w-full h-auto flex flex-col justify-center text-white ">
+                
+                <div class=" animate-fade-right animate-ease-out animate-delay-200" >
+                    <h3 class="animate-charcter text-[6rem] sm:text-9xl font-semibold text-left"> SonGlit</h3>
+                </div>
 
                 <h2 class=" animate-fade-right animate-ease-out animate-delay-300 text-3xl">Todo lo que quieras saber sobra la música, está aquí.</h2>
-
+                
                 <p class=" animate-fade-right animate-ease-out animate-delay-500 text-lg mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem quidem fuga soluta veniam corrupti repellat nostrum. Explicabo reprehenderit laborum beatae?</p>
 
-            <div  class="animate-fade-right animate-ease-out animate-delay-700 mt-6">
-                <a href="#" class=" w-min px-4 py-2 rounded-full cursor-pointer border-0 bg-white text-black shadow-md tracking-widest uppercase text-sm transition-all duration-500 ease-in-out hover:tracking-wider hover:bg-purple-500 hover:text-white hover:shadow-lg active:tracking-wider active:bg-purple-500 active:text-white active:shadow-xl active:translate-y-1 active:transition-[100ms]">Descubre</a>
-            </div>
+                <div  class="animate-fade-right animate-ease-out animate-delay-700 mt-6">
+                    <a href="#" class=" w-min px-4 py-2 rounded-full cursor-pointer border-0 bg-white text-black shadow-md tracking-widest uppercase text-sm transition-all duration-500 ease-in-out hover:tracking-wider hover:bg-purple-500 hover:text-white hover:shadow-lg active:tracking-wider active:bg-purple-500 active:text-white active:shadow-xl active:translate-y-1 active:transition-[100ms]">Descubre</a>
+                </div>
 
-        </article>
+            </article>
+            
+            <article class=" lg:size-auto size-[70%] mx-auto animate-fade-left animate-ease-out animate-delay-200"> 
+                <Video />
+            </article>
+
+        </Section>
         
-        <article class=" w-auto h-auto animate-fade-left animate-ease-out animate-delay-200"> 
-            <video src="video/headphone.mp4" autoplay loop muted playsinline></video>
-        </article>
+        <ScrollText />
+        
+        <Section class=" grid grid-cols-1 lg:grid-cols-2 w-auto h-auto mt-28 px-6 xl:p-0 text-white gap-20 lg:gap-40">
+            
+            <article class=" flex flex-col pt-8">
+                <h1 class=" text-6xl font-semibold text-balance">¡Rockstar! Conoce el mundo de la música</h1>
+                <p class=" mt-4 text-xl mb-2">¿Alguna vez te has preguntado cómo se convierte un músico en un rockstar?</p> 
+                <p class=" mt-2 text-xl mb-2">
+                    ¡Bienvenido a la aventura de la música! Aquí descubrirás historias increíbles de artistas que han recorrido el camino desde el anonimato hasta el éxito mundial. Pero ten cuidado, porque este viaje puede ser tan emocionante como peligroso.
+                </p>
+            </article>
 
-    </Section>
+            <article class=" relative ">
+                <div class=" circle"></div>
+                <div class=" flex flex-col items-center lg:items-start">
+                    <img src="prueba.svg" class=" sm:w-3/4 lg:w-full" alt="">
+                    <Gallery3D />
+                </div>
+            </article>
+        </Section>
 
-    <ScrollText />
-    
-    <Section class=" flex h-auto px-8 my-32 text-white gap-56">
-        <article class=" w-1/2 flex flex-col justify-center">
-            <h1 class=" text-6xl font-semibold">¿Quieres saber que ningún otro sobre música?</h1>
-            <p class=" mt-4 text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, accusantium! Tempora, provident repellat placeat recusandae, eaque deserunt, animi dolorum ut debitis distinctio commodi doloremque? Nemo excepturi molestiae harum necessitatibus repellat.</p>
-        </article>
+        <Section class=" mb-24 flex lg:flex-row flex-col px-6 xl:p-0 gap-8">
+            <article class=" lg:w-1/2 w-auto h-auto grid grid-cols-1 sm:grid-cols-2 gap-32 lg:gap-0 mx-auto lg:mx-0">
+                <div class=" flex flex-col gap-14 ">
+                    <Card
+                    album="https://t2.genius.com/unsafe/300x300/https%3A%2F%2Fimages.genius.com%2Fc43578375ef2ac32c140cc35dfe2fef1.1000x1000x1.png"
+                    name="The Eminem Show"
+                    view={1200}
+                    />
+                    <Card 
+                    class=" flex justify-center"
+                    album="https://www.losreplicantes.com/images/articulos/19000/19081/1.jpg"
+                    name="Guns N' Roses"
+                    view={1200}
+                    />
+                </div>
+                <div class=" flex flex-col gap-12 mt-8 ">
+                    <Card 
+                    album="https://www.losreplicantes.com/images/articulos/19000/19081/12.jpg"
+                    name="Pink Floyd"
+                    view={1200}
+                    />
+                    <Card
+                    class=" flex justify-center" 
+                    album="https://www.losreplicantes.com/images/articulos/19000/19081/15.jpg"
+                    name="Michael Jackson"
+                    view={1200}
+                    />
+                </div>
+            </article>
 
-        <article class=" w-1/2 relative">
-            <div class=" circle"></div>
-            <div>
-                <img src="prueba.svg" class="" alt="">
-                <Gallery3D />
-            </div>
-        </article>
-    </Section>
+            <article class=" lg:w-1/2 w-full text-white flex flex-col justify-center">
+                <h1 class=" text-6xl font-semibold">Tienda de Rockstar: Tu escapada musical</h1>
+                <p class=" mt-4 text-xl mb-2">Sumérgete en el mundo de la música con nuestra Tienda de Rockstar. Aquí encontrarás una selección de mercancías de los artistas que adoras, desde camisetas autografiadas hasta discos vinilo coleccionables. Pero espera, hay más... ¡Nuestros productos son tan cool que podrían convertirte en un rockstar en tu propio hogar!</p>
+                <a href="" class=" w-max mt-4 border border-white py-2 px-4 rounded-full transition-all shadow-xl hover:shadow-pink-500">Ir a tienda</a>
+            </article>
+        </Section>
 
+    </main>
 </Layout>

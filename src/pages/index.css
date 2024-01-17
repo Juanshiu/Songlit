@@ -1,5 +1,49 @@
+.background {
+  z-index: -10;
+  filter: blur(100px);
+  top: -250px;
+  left: -200px;
+  width: 40%;
+  height: 25%;
+  border-radius: 50%;
+  position: absolute;
+  background: rgb(89, 0, 255);
+}
+
+.background::after {
+  content: '';
+  filter: blur(1px);
+  top: 0;
+  left: 90px;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  position: absolute;
+  background: rgb(255, 79, 231);
+}
+.background div {
+  filter: blur(1px);
+  top: 350px;
+  left: -100px;
+  width: 45%;
+  height: 70%;
+  border-radius: 50%;
+  position: absolute;
+  background: rgb(0, 254, 241);
+  z-index: -9;
+}
+
+@media screen and (min-width: 768px) {
+  .background {
+  top: -250px;
+  left: -200px;
+  width: 70%;
+  height: 20%;
+}
+}
+
 video {
-  clip-path: ellipse(40% 49.9%);
+  border-radius: 999px;
 }
 
 .animate-charcter {

@@ -7,6 +7,7 @@ interface Props {
 const { title, description } = Astro.props;
 import Header from '../components/Layout/Header.astro';
 import '@fontsource-variable/onest';
+import Footer from '../components/Layout/Footer.astro';
 ---
 
 <!doctype html>
@@ -16,18 +17,16 @@ import '@fontsource-variable/onest';
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={description}>
+		<meta name="theme-color" content="#202020">
 		<link rel="icon" type="image/svg+xml" href="/songlit.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
 
 	<body class="">
-		<div class="background"><div></div></div>
 		<Header />
-		<main class="">
 			<slot />
-		</main>
-
+		<Footer />
 	</body>
 
 </html>
@@ -40,46 +39,25 @@ import '@fontsource-variable/onest';
 		scroll-behavior: smooth;
 	}
 
-	.background {
-		z-index: -10;
-		filter: blur(100px);
-		top: -250px;
-		left: -200px;
-		width: 700px;
-		height: 700px;
-		border-radius: 50%;
-		position: absolute;
-		background: rgb(89, 0, 255);
-	}
-
-	.background::after {
-		content: '';
-		filter: blur(1px);
-		top: 0;
-		left: 90px;
-		width: 450px;
-		height: 450px;
-		border-radius: 50%;
-		position: absolute;
-		background: rgb(255, 79, 231);
-	}
-	.background div {
-		filter: blur(1px);
-		top: 350px;
-		left: -100px;
-		width: 400px;
-		height: 400px;
-		border-radius: 50%;
-		position: absolute;
-		background: rgb(0, 254, 241);
-		z-index: -9;
-	}
-
 	body {
 		position: relative;
 		background: #000000;
 		display: flex;
 		flex-direction: column;
+	}
+
+	body::-webkit-scrollbar {
+		width: 12px;
+	}
+
+	body::-webkit-scrollbar-track {
+		background: #202020;
+	}
+
+	body::-webkit-scrollbar-thumb {
+		background-color: #484848;
+		border-radius: 20px;  
+		border: 3px solid #202020; 
 	}
 
 	@media (prefers-reduced-motion: reduce) {
