@@ -5,9 +5,8 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-import Header from '../components/Layout/Header/Header.astro';
 import '@fontsource-variable/onest';
-import Footer from '../components/Layout/Footer.astro';
+import { ViewTransitions } from 'astro:transitions';
 ---
 
 <!doctype html>
@@ -21,12 +20,11 @@ import Footer from '../components/Layout/Footer.astro';
 		<link rel="icon" type="image/svg+xml" href="/songlit.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions />
 	</head>
 
 	<body>
-		<Header />
-			<slot />
-		<Footer />
+		<slot />
 	</body>
 
 </html>
