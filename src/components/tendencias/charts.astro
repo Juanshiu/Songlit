@@ -1,0 +1,24 @@
+---
+import fetchApi from '../../lib/strapi';
+import type Charts from '../../interfaces/charts';
+
+const charts = await fetchApi<Charts[]>({
+  endpoint: 'charts?populate[genres][fields][1]=genero&populate[imgalbum][fields][1]=url', // el tipo de contenido a obtener
+  wrappedByKey: 'data', // la clave para desempaquetar la respuesta
+});
+
+const STRAPI_URL = import.meta.env.STRAPI_URL;
+---
+
+<div class="text-white">
+  {
+  charts.map(chart => 
+      <a href={chart.attributes.slug} class=" flex items-center py-2 justify-between">
+        <span>{chart.id}</span>
+          <img src={`${STRAPI_URL}${chart.attributes.imgalbum.data.attributes.url}`} alt={chart.attributes.title} class=" size-14">
+          <h1 class="text-xl font-semibold">{chart.attributes.title}</h1>
+          <h2 class="text-lg font-semibold">{chart.attributes.artist}</h2>
+      </a>
+      )
+  }
+</div>

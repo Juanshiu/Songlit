@@ -2,21 +2,18 @@
 import "./index.css";
 import Layout from '@layouts/Layout.astro';
 import Section from '@components/Section.astro';
-import ScrollText  from "@components/textscroll.astro";
-import Gallery3D from "@components/Gallery3D.astro";
-import Video from "@components/Video.astro";
-import Card from "@components/Cards.astro";
-import Header from '@components/Layout/Header/Header.astro';
-import Footer from '@components/Layout/Footer.astro';
+import ScrollText  from "@components/Index/textscroll.astro";
+import Gallery3D from "@components/Index/Gallery3D.astro";
+import Video from "@components/Index/Video.astro";
+import Card from "@components/tendencias/Cards.astro";
 ---
 
 <Layout title="Songlit" description='Biblioteca de Artistas, Caciones y Discografía '>
 <div class="background"><div></div></div>
-<Header />
 
     <main>
 
-        <Section id="inicio" class="flex flex-col gap-8 px-6 mt-12 lg:flex-row xl:p-0">
+        <Section id="inicio" class="flex flex-col gap-8 mt-12 lg:flex-row xl:p-0">
 
             <article class="flex flex-col justify-center w-full h-auto text-white ">
                 
@@ -42,7 +39,7 @@ import Footer from '@components/Layout/Footer.astro';
         
         <ScrollText />
         
-        <Section class="grid w-auto h-auto grid-cols-1 gap-20 px-6 text-white lg:grid-cols-2 mt-28 xl:p-0 lg:gap-24 xl:gap-36">
+        <Section class="grid w-auto h-auto grid-cols-1 gap-20 text-white lg:grid-cols-2 mt-28 xl:p-0 lg:gap-24 xl:gap-36">
             
             <article class="flex flex-col pt-8 ">
                 <h1 class="text-6xl font-semibold animate-charcter text-balance">¡Rockstar! Conoce el mundo de la música</h1>
@@ -61,7 +58,7 @@ import Footer from '@components/Layout/Footer.astro';
             </article>
         </Section>
 
-        <Section class="flex flex-col gap-8 px-6 mb-24 lg:flex-row lg:mt-14 sm:mt-18 xl:p-0">
+        <Section class="flex flex-col gap-8 mb-24 lg:flex-row lg:mt-14 sm:mt-18 xl:p-0">
             <article class="grid w-auto h-auto grid-cols-1 gap-5 mx-auto sm:gap-32 lg:w-1/2 sm:grid-cols-2 lg:gap-0 lg:mx-0">
                 <div class="flex flex-col gap-14">
                     <Card
@@ -99,5 +96,4 @@ import Footer from '@components/Layout/Footer.astro';
         </Section>
 
     </main>
-<Footer />
 </Layout>
