@@ -1,0 +1,128 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import fetchApi from '../../lib/strapi';
+import type Song from '../../interfaces/songs';
+import Section from '../../components/Section.astro';
+import FormattedDate from '../../components/tendencias/FormattedDate';
+import Colorthief from '../../components/songs/Colorthief';
+import Calendar from '@components/icons/calendar.astro';
+import Color from '@components/songs/color.astro';
+// import {extractColors} from '../../components/songs/Colorthief2';
+
+export async function getStaticPaths() {
+  const songs = await fetchApi<Song[]>({
+    endpoint: 'songs?populate[cover][fields][0]=url&populate[artists][fields][0]=name&populate[artists][fields][1]=slug&populate[genres][fields][0]=genero',
+    wrappedByKey: 'data'  
+  });
+
+  return songs.map((song) => ({
+    params: { slug: song.slug },
+    props: song
+  }));
+  
+}
+
+type Props = Song;
+const songs = Astro.props;
+const STRAPI_URL = import.meta.env.STRAPI_URL;
+
+// Para mostrar una descripción corta de la canción
+let shortAbout = '';
+if (songs && songs && songs.about) {
+  shortAbout = songs.about.substring(0, 275);
+
+  if (songs.about.length > 275) {
+    shortAbout += '...';
+  }
+}
+---
+<Layout title={`${songs.artists[0].name} - ${songs.title} Lyrics | Songlit`} description=''>
+  <main class=" min-h-screen">
+
+    <Color imageUrl={`${STRAPI_URL}${songs.cover.url}`} className=' w-full h-auto text-black pt-16' id='gradient-container'>
+      <article class="w-full h-[19.5rem] px-8 pt-4 flex gap-6 mx-auto container">
+        <img src={`${STRAPI_URL}${songs.cover.url}`} alt={songs.title} class=" size-[19.5rem] ">
+  
+        <div class="flex flex-col h-full text-left w-[40rem] text-white"> 
+          <h1 class="text-4xl font-semibold mb-2">{songs.title}</h1>
+          <h2 class="text-xl font-medium"><a href={`/artists/${songs.artists[0].slug}`} class=" hover:border-b-2">{songs.artists[0].name}</a>  &#8226; <span class="text-pink-500">Track</span>
+          </h2>
+          <p class="mt-4 text-pretty text-lg">{shortAbout} <a href="#about" class="underline hover:no-underline">Leer más &#8629;	</a></p>
+          <span class="flex gap-1 items-center mt-auto pb-4"><Calendar class=" size-4 fill-white"></Calendar>
+            Publicado en <FormattedDate fechaNumerica={songs.date}/></span>
+        </div>
+  
+      </article>
+    </Color> 
+
+    <Section class=" mt-12 flex flex-col-reverse lg:flex-row">
+
+      <article class=" w-2/3 text-black text-xl" >
+        <div class=" flex gap-8 mb-6 font-light text-base">
+            <span class=" flex items-center gap-1">
+              <img src="/svg/into.svg" class=" size-4" alt="">
+              {songs.title} Lyrics
+            </span>
+            <span class=" flex items-center gap-1">
+              <img src="/svg/translate.svg" class=" size-4" alt="">
+              Traducir
+            </span>
+        </div>
+
+        <div class=" [&>p>strong]:font-bold">
+          {songs.lyrics3.map((paragraph) => (
+            <p>{paragraph.children.map((child) => child.text).join('')}</p>
+          ))}
+        </div>
+      </article>
+
+      <article class=" w-1/3 border-l border-stone-600 p-4 text-black">
+        <span class=" flex gap-2 text-pink-300 text-lg">
+          <img src="/svg/circlecheck.svg" alt="">
+          Información de la canción
+        </span>
+        
+        <div class="flex flex-col gap-3 text-normal">
+          <span class="flex gap-1 items-center mt-2">
+            <img src="/svg/lapiz.svg" class=" size-4" alt="">
+            <span>Escrito por: {songs.artists.map(artist => artist.name).join(', ')}</span>
+          </span>
+          <span class="flex gap-1 items-center">
+            <img src="/svg/slider.svg" class=" size-4" alt="">
+            <span>Producido por: {songs.artists.map(artist => artist.name).join(', ')}</span>
+          </span>
+          <span class="flex gap-1 items-center">
+            <Calendar class=" size-4"></Calendar>
+            <span class=" flex gap-2">Publicado en: <FormattedDate fechaNumerica={songs.date}/></span>
+          </span>
+        </div>
+
+        <span class=" flex gap-2 text-lime-500 text-lg mt-8">
+          <img src="/svg/song.svg" class=" fill-black" alt="">
+          Generos
+        </span>
+
+        <div class=" flex gap-2">
+          {songs.genres.map((genre: { genero: unknown; }) => (
+            <span class=" border border-stone-500 px-2 mt-2 rounded-full">{genre.genero}</span>
+          ))}
+        </div>
+
+      </article>
+    </Section>
+    
+    <Color imageUrl={`${STRAPI_URL}${songs.cover.url}`} className=" w-full mt-12 h-full max-w-7xl px-6 mx-auto container" id="about" >
+
+      <article class="text-black max-w-7xl mx-auto py-16">
+        <div class=" w-2/3 flex flex-col gap-4">
+          <h1 class=" font-medium text-8xl text-center">About</h1>
+          <span class=" flex justify-between">Anotación de Songlit <span>Contribuciones</span></span>
+          <p class=" space-y-4 text-lg">{songs.about}</p>
+        </div>
+      </article>
+
+    </Color>
+
+
+  </main>
+</Layout>
