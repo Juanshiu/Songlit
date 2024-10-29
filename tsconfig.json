@@ -11,6 +11,7 @@
       "@layouts/*": [
         "src/layouts/*"
       ]
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./types"]
   }
 }
