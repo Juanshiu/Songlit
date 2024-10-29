@@ -40,15 +40,21 @@ if (songs && songs && songs.about) {
   <main class=" min-h-screen">
 
     <Color imageUrl={`${STRAPI_URL}${songs.cover.url}`} className=' w-full h-auto text-black pt-16' id='gradient-container'>
-      <article class="w-full h-[19.5rem] px-8 pt-4 flex gap-6 mx-auto container">
-        <img src={`${STRAPI_URL}${songs.cover.url}`} alt={songs.title} class=" size-[19.5rem] ">
+      <article class="w-full h-auto lg:h-[19.5rem] px-6 py-4 flex gap-6 mx-auto container">
+        <img src={`${STRAPI_URL}${songs.cover.url}`} alt={songs.title} class=" hidden md:inline-block size-[19.5rem] ">
   
         <div class="flex flex-col h-full text-left w-[40rem] text-white"> 
-          <h1 class="text-4xl font-semibold mb-2">{songs.title}</h1>
-          <h2 class="text-xl font-medium"><a href={`/artists/${songs.artists[0].slug}`} class=" hover:border-b-2">{songs.artists[0].name}</a>  &#8226; <span class="text-pink-500">Track</span>
-          </h2>
+          <div class=" flex justify-between">
+            <div>
+              <h1 class="text-4xl font-semibold mb-2">{songs.title}</h1>
+              <h2 class="text-xl font-medium"><a href={`/artists/${songs.artists[0].slug}`} class=" hover:border-b-2">{songs.artists[0].name}</a>  &#8226; <span class="text-pink-500">Track</span>
+              </h2>
+            </div>
+            <img src={`${STRAPI_URL}${songs.cover.url}`} alt={songs.title} class=" inline-block md:hidden size-[5rem]">
+          </div>
+
           <p class="mt-4 text-pretty text-lg">{shortAbout} <a href="#about" class="underline hover:no-underline">Leer más &#8629;	</a></p>
-          <span class="flex gap-1 items-center mt-auto pb-4"><Calendar class=" size-4 fill-white"></Calendar>
+          <span class="flex gap-1 items-center mt-auto"><Calendar class=" size-4 fill-white"></Calendar>
             Publicado en <FormattedDate fechaNumerica={songs.date}/></span>
         </div>
   
@@ -57,7 +63,7 @@ if (songs && songs && songs.about) {
 
     <Section class=" mt-12 flex flex-col-reverse lg:flex-row">
 
-      <article class=" w-2/3 text-black text-xl" >
+      <article class=" w-full lg:w-2/3 text-black text-xl" >
         <div class=" flex gap-8 mb-6 font-light text-base">
             <span class=" flex items-center gap-1">
               <img src="/svg/into.svg" class=" size-4" alt="">
@@ -76,7 +82,7 @@ if (songs && songs && songs.about) {
         </div>
       </article>
 
-      <article class=" w-1/3 border-l border-stone-600 p-4 text-black">
+      <article class=" w-full lg:w-1/3 lg:border-l border-t border-b lg:border-0 border-stone-600 p-4 mb-4 text-black">
         <span class=" flex gap-2 text-pink-300 text-lg">
           <img src="/svg/circlecheck.svg" alt="">
           Información de la canción
@@ -114,7 +120,7 @@ if (songs && songs && songs.about) {
     <Color imageUrl={`${STRAPI_URL}${songs.cover.url}`} className=" w-full mt-12 h-full max-w-7xl px-6 mx-auto container" id="about" >
 
       <article class="text-black max-w-7xl mx-auto py-16">
-        <div class=" w-2/3 flex flex-col gap-4">
+        <div class=" w-full lg:w-2/3 flex flex-col gap-4">
           <h1 class=" font-medium text-8xl text-center">About</h1>
           <span class=" flex justify-between">Anotación de Songlit <span>Contribuciones</span></span>
           <p class=" space-y-4 text-lg">{songs.about}</p>
