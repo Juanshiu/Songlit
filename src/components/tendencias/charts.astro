@@ -12,14 +12,14 @@ const STRAPI_URL = import.meta.env.STRAPI_URL;
 
 <div class="text-black font-medium text-base sm:text-2xl mt-4">
 
-    <ol class="list-decimal pl-6">
+    <ol class="list-decimal">
       {songs.map((song, index) => (
       <a href={`/songs/${song.slug}`}>
         <li class="flex items-center py-1">
-          <span class="p-4 w-4">{index + 1}</span>
-          <img src={`${STRAPI_URL}${song.cover.url}`} alt={song.title} class="size-14 ml-8 mr-4" />
+          <span class=" pl-2 w-0 lg:p-4 lg:w-4">{index + 1}</span>
+          <img src={`${STRAPI_URL}${song.cover.url}`} alt={song.title} class=" size-12 md:size-14 ml-6 md:ml-8 mr-2 md:mr-4" />
           <span class="w-1/2">{song.title}</span>
-          <p class="text-right text">{song.artists.map(artist => artist.name).join(', ')}</p>
+          <p class=" w-full text-right">{song.artists.map(artist => artist.name).join(', ')}</p>
         </li>
       </a>
       <hr class="border-stone-500" />
