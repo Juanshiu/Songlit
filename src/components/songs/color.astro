@@ -1,0 +1,34 @@
+---
+// ColorPalette.astro
+export interface Props {
+    imageUrl: string;
+    className?: string;
+    id?: string;
+}
+
+const { imageUrl, className = "", id } = Astro.props;
+---
+
+<div>
+    <img
+        id="colorThiefImage"
+        src={imageUrl}
+        alt="Imagen para extraer colores"
+        crossorigin="anonymous"
+        style="display: none;"
+    />
+    <section
+        id={id}
+        class={className}
+    >
+        <slot />
+    </section>
+</div>
+
+<script>
+    import { setupColorExtraction } from '../../components/songs/Colorthief2';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        setupColorExtraction('colorThiefImage', 'gradient-container');
+    });
+</script>
