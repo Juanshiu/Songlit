@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import fetchApi from '../../lib/strapi';
+import type Artist from '../../interfaces/artists';
+import Section from '../../components/Section.astro';
+import FormattedDate from '../../components/tendencias/FormattedDate';
+import Calendar from '@components/icons/calendar.astro';
+
+export async function getStaticPaths() {
+    const artists = await fetchApi<Artist[]>({
+        endpoint: 'artists?populate[photo][fields][0]=url&populate[imgback][fields][0]=url',
+        wrappedByKey: 'data'  
+    });
+
+    return artists.map((artist) => ({
+        params: { artist: artist.slug },
+        props: artist
+    }));
+
+}
+
+type Props = Artist;
+const artists = Astro.props;
+const STRAPI_URL = import.meta.env.STRAPI_URL;
+const bg = `background-image: url('${STRAPI_URL}${artists.imgback.url}');`;
+
+
+console.log(artists.name);
+---
+
+<Layout title={`${artists.name} | Songlit`} description=''>
+
+    <section class="encabezado relative w-full h-96 bg-center bg-cover" style={`${bg}`}>
+        <div class="contenido flex items-center md:gap-8 justify-center mt-[13rem] md:mt-[12rem] z-10">
+            <img src={`${STRAPI_URL}${artists.photo.url}`} alt={artists.name} class=" size-48 md:size-60 rounded-full shadow-lg shadow-black" />
+            <h1 class="title font-bold hidden md:flex md:text-6xl xl:text-8xl text-wrap text-center text-white mt-4">{artists.name}</h1>
+        </div>
+    </section>
+    
+    <Section class=" mt-8 md:mt-20 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <article class=" ">
+            <h1 class=" flex md:hidden font-bold text-4xl text-center pb-2">{artists.name}</h1>
+            <div class=" [&>p>strong]:font-bold w-full text-lg">
+                {artists.about.map((paragraph) => (
+                    <p>{paragraph.children.map((child) => child.text).join('')}</p>
+                ))}
+            </div>
+        </article>
+        <article class=" ">
+            <h2 class=" text-2xl font-bold inline-block">Discografía</h2>
+
+            <div class=" flex w-full">
+                <a href="" class=" p-2 hover:bg-black/10 transition-colors rounded-lg">
+                    <img src="https://placehold.co/250x250" alt="" class=" rounded-md">
+                    <h3 class=" font-bold text-lg">Album 1</h3>
+                    <span>2024</span>
+                </a>
+                <a href="" class=" p-2 hover:bg-black/10 transition-colors rounded-lg">
+                    <img src="https://placehold.co/250x250" alt="" class=" rounded-md">
+                    <h3 class=" font-bold text-lg">Album 1</h3>
+                    <span>2024</span>
+                </a>
+            </div>
+        </article>
+    </Section>
+</Layout>
+
+<style>
+    .title {
+        text-shadow: 0 0 10px black;
+    }
+</style>
+
