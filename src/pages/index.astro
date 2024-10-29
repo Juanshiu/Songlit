@@ -1,19 +1,18 @@
 ---
-import "./index.css";
-import Layout from '@layouts/Layout.astro';
-import Section from '@components/Section.astro';
-import ScrollText  from "@components/Index/textscroll.astro";
-import Gallery3D from "@components/Index/Gallery3D.astro";
-import Video from "@components/Index/Video.astro";
-import Card from "@components/tendencias/Cards.astro";
+import "./styles/index.css";
+import Layout2 from '../layouts/Layout2.astro';
+import Section from '../components/Section.astro';
+import ScrollText  from "../components/index/textscroll.astro";
+import Gallery3D from "../components/index/Gallery3D.astro";
+import Video from "../components/index/Video.astro";
+import Card from "../components/tendencias/Cards.astro";
 ---
 
-<Layout title="Songlit" description='Biblioteca de Artistas, Caciones y Discografía '>
+<Layout2 title="Songlit" description='Biblioteca de Artistas, Caciones y Discografía '>
 <div class="background"><div></div></div>
-
     <main>
 
-        <Section id="inicio" class="flex flex-col gap-8 mt-12 lg:flex-row xl:p-0">
+        <Section id="inicio" class="flex flex-col gap-8 mt-32 lg:flex-row xl:p-0 ">
 
             <article class="flex flex-col justify-center w-full h-auto text-white ">
                 
@@ -52,7 +51,7 @@ import Card from "@components/tendencias/Cards.astro";
             <article class=" w-full h-full relative">
                 <div class=" circle"></div>
                 <div class="flex flex-col items-center justify-center">
-                    <img src="prueba.svg" class=" sm:w-3/4 lg:w-full lg:pt-24 xl:pt-0" alt="">
+                    <img src="svg/prueba.svg" class=" sm:w-3/4 lg:w-full lg:pt-24 xl:pt-0" alt="">
                     <Gallery3D />
                 </div>
             </article>
@@ -73,7 +72,7 @@ import Card from "@components/tendencias/Cards.astro";
                         view={1200}
                     />
                 </div>
-                <div class="flex flex-col gap-12 mt-8 ">
+                <div class="flex flex-col gap-14 mt-8 ">
                     <Card 
                         album="https://www.losreplicantes.com/images/articulos/19000/19081/12.jpg"
                         name="Pink Floyd"
@@ -96,4 +95,4 @@ import Card from "@components/tendencias/Cards.astro";
         </Section>
 
     </main>
-</Layout>
+</Layout2>
