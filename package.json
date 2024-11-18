@@ -15,6 +15,7 @@
     "@astrojs/tailwind": "^5.1.1",
     "@astropub/md": "^1.0.0",
     "@fontsource-variable/onest": "^5.0.2",
+    "@tailwindcss/typography": "^0.5.15",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
     "astro": "^5.0.0-beta.1",
