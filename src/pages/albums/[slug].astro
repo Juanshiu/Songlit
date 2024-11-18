@@ -1,0 +1,89 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import fetchApi from '../../lib/strapi';
+import type Album from '../../interfaces/albums';
+import Section from '../../components/Section.astro';
+import Dateformatted from '../../components/Dateformatted.astro';
+import { Markdown } from '@astropub/md';
+
+
+export async function getStaticPaths() {
+    const albums = await fetchApi<Album[]>({
+        endpoint: 'albums?populate[songs][fields]=title,slug&populate[albumfoto][fields][0]=url&populate[artists][fields]=name,slug',
+        wrappedByKey: 'data'  
+    });
+
+    return albums.map((album) => ({
+        params: { slug: album.slug },
+        props: album
+    }));
+
+}
+
+type Props = Album;
+const albums = Astro.props;
+const STRAPI_URL = import.meta.env.STRAPI_URL;
+const albumfoto = `${STRAPI_URL}${albums.albumfoto.url}`;
+---
+
+<Layout title={albums.title} description=''>
+    
+    <Section class="grid w-auto h-auto grid-cols-1 gap-20 text-black lg:grid-cols-2 mt-36 xl:p-0 lg:gap-24 xl:gap-36">
+        
+        <article class="flex flex-col">
+            <h1 class=" text-5xl sm:text-6xl lg:text-7xl font-semibold animate-charcter text-balance">{albums.title}</h1>
+            <h2>
+                <a href={`/artists/${albums.artists.slug}`} class=" group inline-block mt-4 mb-2 text-2xl font-bold">
+                    {albums.artists.name}
+                    <div class="bg-black h-[3px] w-0 group-hover:w-full transition-all duration-500"></div>
+                </a>
+            </h2>
+            <div class="mt-2 mb-2 text-xl ">
+                <span class=" font-bold">Lanzamiento:</span> 
+                <Dateformatted fechaNumerica={albums.release}>
+            </div>
+            <div class=" flex flex-col gap-10 mt-8">
+                <ol class=" list-decimal group px-4">
+                    {
+                        albums.songs.map((song) => (
+                            <a href={`/songs/${song.slug}`}>
+                                <li class=" pl-2">
+                                    <h2 class=" text-2xl">{song.title}</h2>
+                                </li>
+                            </a>
+                            <div class="bg-black h-[3px] w-0 group-hover:w-full transition-all duration-500"></div>
+                            <hr/>
+                        ))
+                    }
+                </ol>
+            </div>
+        </article>
+
+        <article class=" w-full h-full relative">
+            <div class=" circle"></div>
+            <div class="flex flex-col items-center justify-center">
+                <img src={albumfoto} class=" sm:w-3/4 lg:w-full lg:pt-24 xl:pt-0 rounded-md" alt="">
+            </div>
+        </article>
+    </Section>
+
+    <!-- <Section class="flex flex-col gap-8 mb-24 lg:flex-row lg:mt-14 sm:mt-18 xl:p-0">
+        <article class="grid w-auto h-auto grid-cols-1 gap-5 mx-auto sm:gap-32 lg:w-1/2 sm:grid-cols-2 lg:gap-0 lg:mx-0">
+            <div class="flex flex-col gap-14">
+                {
+                    albums.songs.map((song) => (
+                        <div>
+                            <a href={`/songs/${song.slug}`}>
+                                <h2>{song.title}</h2>
+                            </a>
+                        </div>
+                    ))
+                }
+            </div>
+        </article>
+    </Section> -->
+
+    <Section class=" prose text-lg mt-20 px-0 text-black">
+        <Markdown of={albums.about}></Markdown>
+    </Section>
+</Layout>

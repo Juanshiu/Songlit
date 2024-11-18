@@ -3,11 +3,9 @@ import Layout from '../../layouts/Layout.astro';
 import fetchApi from '../../lib/strapi';
 import type Song from '../../interfaces/songs';
 import Section from '../../components/Section.astro';
-import FormattedDate from '../../components/tendencias/FormattedDate';
-import Colorthief from '../../components/songs/Colorthief';
+import Dateformatted from '../../components/Dateformatted.astro';
 import Calendar from '@components/icons/calendar.astro';
 import Color from '@components/songs/color.astro';
-// import {extractColors} from '../../components/songs/Colorthief2';
 
 export async function getStaticPaths() {
   const songs = await fetchApi<Song[]>({
@@ -25,6 +23,7 @@ export async function getStaticPaths() {
 type Props = Song;
 const songs = Astro.props;
 const STRAPI_URL = import.meta.env.STRAPI_URL;
+const imgcover = `${STRAPI_URL}${songs.cover.url}`;
 
 // Para mostrar una descripción corta de la canción
 let shortAbout = '';
@@ -39,23 +38,25 @@ if (songs && songs && songs.about) {
 <Layout title={`${songs.artists[0].name} - ${songs.title} Lyrics | Songlit`} description=''>
   <main class=" min-h-screen">
 
-    <Color imageUrl={`${STRAPI_URL}${songs.cover.url}`} className=' w-full h-auto text-black pt-16' id='gradient-container'>
+    <Color imageUrl={imgcover} className=' w-full h-auto text-black pt-16' id='gradient-container'>
       <article class="w-full h-auto lg:h-[19.5rem] px-6 py-4 flex gap-6 mx-auto container">
-        <img src={`${STRAPI_URL}${songs.cover.url}`} alt={songs.title} class=" hidden md:inline-block size-[19.5rem] ">
+        <img src={imgcover} alt={songs.title} class=" hidden md:inline-block size-[19.5rem] ">
   
         <div class="flex flex-col h-full text-left w-[40rem] text-white"> 
           <div class=" flex justify-between">
             <div>
               <h1 class="text-4xl font-semibold mb-2">{songs.title}</h1>
-              <h2 class="text-xl font-medium"><a href={`/artists/${songs.artists[0].slug}`} class=" hover:border-b-2">{songs.artists[0].name}</a>  &#8226; <span class="text-pink-500">Track</span>
+              <h2 class="text-xl font-medium">
+                <a href={`/artists/${songs.artists[0].slug}`} class=" hover:border-b-2">{songs.artists[0].name} </a>  &#8226; 
+                <span class="text-pink-500">Track</span>
               </h2>
             </div>
-            <img src={`${STRAPI_URL}${songs.cover.url}`} alt={songs.title} class=" inline-block md:hidden size-[5rem]">
+            <img src={imgcover} alt={songs.title} class=" inline-block md:hidden size-[5rem]">
           </div>
 
           <p class="mt-4 text-pretty text-lg">{shortAbout} <a href="#about" class="underline hover:no-underline">Leer más &#8629;	</a></p>
           <span class="flex gap-1 items-center mt-auto"><Calendar class=" size-4 fill-white"></Calendar>
-            Publicado en <FormattedDate fechaNumerica={songs.date}/></span>
+            Publicado en <Dateformatted fechaNumerica={songs.date}/></span>
         </div>
   
       </article>
@@ -99,7 +100,7 @@ if (songs && songs && songs.about) {
           </span>
           <span class="flex gap-1 items-center">
             <Calendar class=" size-4"></Calendar>
-            <span class=" flex gap-2">Publicado en: <FormattedDate fechaNumerica={songs.date}/></span>
+            <span class=" flex gap-2">Publicado en: <Dateformatted fechaNumerica={songs.date}/></span>
           </span>
         </div>
 
@@ -117,7 +118,7 @@ if (songs && songs && songs.about) {
       </article>
     </Section>
     
-    <Color imageUrl={`${STRAPI_URL}${songs.cover.url}`} className=" w-full mt-12 h-full max-w-7xl px-6 mx-auto container" id="about" >
+    <Color imageUrl={imgcover} className=" w-full mt-12 h-full max-w-7xl px-6 mx-auto container" id="about" >
 
       <article class="text-black max-w-7xl mx-auto py-16">
         <div class=" w-full lg:w-2/3 flex flex-col gap-4">
