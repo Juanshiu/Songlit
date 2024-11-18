@@ -5,6 +5,7 @@ export default interface Artist {
     about: About[];
     photo: Photo;
     imgback: Imgback;
+    albums: Album[];
 }
 
 interface About {
@@ -18,4 +19,12 @@ interface Photo {
 
 interface Imgback {
     url: string;
+}
+
+interface Album {
+    id: number;
+    title: string;
+    slug: string;
+    release: string;
+    cover: string;
 }
