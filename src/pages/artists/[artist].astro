@@ -5,10 +5,11 @@ import type Artist from '../../interfaces/artists';
 import Section from '../../components/Section.astro';
 import Dateformatted from '../../components/Dateformatted.astro';
 import Calendar from '@components/icons/calendar.astro';
+import { Markdown } from '@astropub/md';
 
 export async function getStaticPaths() {
     const artists = await fetchApi<Artist[]>({
-        endpoint: 'artists?populate[photo][fields][0]=url&populate[imgback][fields][0]=url&populate[albums][fields]=title,slug,release',
+        endpoint: 'artists?populate[photo][fields][0]=url&populate[imgback][fields][0]=url&populate[albums][fields]=title,slug,release&populate[albums][populate][albumfoto][fields][0]=url',
         wrappedByKey: 'data'  
     });
 
@@ -40,10 +41,8 @@ console.log(artists.name);
     <Section class=" mt-8 md:mt-20 grid grid-cols-1 lg:grid-cols-2 gap-8">
         <article class=" ">
             <h1 class=" flex md:hidden font-bold text-4xl text-center pb-2">{artists.name}</h1>
-            <div class=" [&>p>strong]:font-bold w-full text-lg">
-                {artists.about.map((paragraph) => (
-                    <p>{paragraph.children.map((child) => child.text).join('')}</p>
-                ))}
+            <div class=" prose text-lg text-black m-0 p-0">
+                <p><Markdown of={artists.about}/></p>
             </div>
         </article>
         <article class=" ">
@@ -53,7 +52,12 @@ console.log(artists.name);
                 {
                     artists.albums.map((album) => (
                         <a href={`/albums/${album.slug}`} class=" p-2 hover:bg-black/10 transition-colors rounded-lg">
-                            <img src="https://placehold.co/250x250" alt="" class=" rounded-md">
+                            <img 
+                                src={`${STRAPI_URL}${album.albumfoto.url}`} 
+                                alt="" 
+                                class=" rounded-md size-60"
+                                transition:name="album"    
+                            >
                             <h3 class=" font-bold text-lg">{album.title}</h3>
                             <div class=" flex gap-2 items-center">
                                 <Calendar /> 

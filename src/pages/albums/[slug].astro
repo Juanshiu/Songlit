@@ -49,7 +49,7 @@ const albumfoto = `${STRAPI_URL}${albums.albumfoto.url}`;
                             <a href={`/songs/${song.slug}`}>
                                 <li class=" pl-2">
                                     <h2 class=" text-2xl">{song.title}</h2>
-                                </li>
+                                </li>   
                             </a>
                             <div class="bg-black h-[3px] w-0 group-hover:w-full transition-all duration-500"></div>
                             <hr/>
@@ -62,26 +62,15 @@ const albumfoto = `${STRAPI_URL}${albums.albumfoto.url}`;
         <article class=" w-full h-full relative">
             <div class=" circle"></div>
             <div class="flex flex-col items-center justify-center">
-                <img src={albumfoto} class=" sm:w-3/4 lg:w-full lg:pt-24 xl:pt-0 rounded-md" alt="">
+                <img 
+                    src={albumfoto} 
+                    class=" sm:w-3/4 lg:w-full lg:pt-24 xl:pt-0 rounded-md" 
+                    alt=""
+                    transition:name="album"
+                >
             </div>
         </article>
     </Section>
-
-    <!-- <Section class="flex flex-col gap-8 mb-24 lg:flex-row lg:mt-14 sm:mt-18 xl:p-0">
-        <article class="grid w-auto h-auto grid-cols-1 gap-5 mx-auto sm:gap-32 lg:w-1/2 sm:grid-cols-2 lg:gap-0 lg:mx-0">
-            <div class="flex flex-col gap-14">
-                {
-                    albums.songs.map((song) => (
-                        <div>
-                            <a href={`/songs/${song.slug}`}>
-                                <h2>{song.title}</h2>
-                            </a>
-                        </div>
-                    ))
-                }
-            </div>
-        </article>
-    </Section> -->
 
     <Section class=" prose text-lg mt-20 px-0 text-black">
         <Markdown of={albums.about}></Markdown>

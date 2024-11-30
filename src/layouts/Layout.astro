@@ -9,6 +9,7 @@ const { title, description, class: className } = Astro.props;
 import '@fontsource-variable/onest';
 import Header from "@components/Layout/Header/Header.astro";
 import Footer from "@components/Layout/Footer.astro";
+import { ClientRouter } from 'astro:transitions';
 
 ---
 
@@ -21,6 +22,7 @@ import Footer from "@components/Layout/Footer.astro";
 		<meta name="theme-color" content="#202020">
 		<link rel="icon" type="image/svg+xml" href="/songlit.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<ClientRouter />
 		<title>{title}</title>
 	</head>
 
