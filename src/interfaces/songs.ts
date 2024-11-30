@@ -8,6 +8,7 @@ export default interface Song {
     lyrics3: Lyrics3[];
     slug: string;
     cover: Cover;
+    linkyt: string;
 }
 
 interface Artist {
