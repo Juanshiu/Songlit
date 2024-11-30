@@ -6,6 +6,7 @@ import Section from '../../components/Section.astro';
 import Dateformatted from '../../components/Dateformatted.astro';
 import Calendar from '@components/icons/calendar.astro';
 import Color from '@components/songs/color.astro';
+import LiteYoutube from '@components/LiteYoutube.astro';
 
 export async function getStaticPaths() {
   const songs = await fetchApi<Song[]>({
@@ -54,7 +55,7 @@ if (songs && songs && songs.about) {
             <img src={imgcover} alt={songs.title} class=" inline-block md:hidden size-[5rem]">
           </div>
 
-          <p class="mt-4 text-pretty text-lg">{shortAbout} <a href="#about" class="underline hover:no-underline">Leer más &#8629;	</a></p>
+          <p class="mt-4 text-pretty text-lg">{shortAbout} <a href="#gradient-container-2" class="underline hover:no-underline">Leer más &#8629;	</a></p>
           <span class="flex gap-1 items-center mt-auto"><Calendar class=" size-4 fill-white"></Calendar>
             Publicado en <Dateformatted fechaNumerica={songs.date}/></span>
         </div>
@@ -118,18 +119,20 @@ if (songs && songs && songs.about) {
       </article>
     </Section>
     
-    <Color imageUrl={imgcover} className=" w-full mt-12 h-full max-w-7xl px-6 mx-auto container" id="about" >
+    <Color imageUrl={imgcover} className=" w-full h-full mt-12 border-y-[1.5rem] border-stone-950 border" id="gradient-container-2" >
 
-      <article class="text-black max-w-7xl mx-auto py-16">
+      <article class="text-white max-w-7xl mx-auto py-16 px-6">
         <div class=" w-full lg:w-2/3 flex flex-col gap-4">
           <h1 class=" font-medium text-8xl text-center">About</h1>
           <span class=" flex justify-between">Anotación de Songlit <span>Contribuciones</span></span>
           <p class=" space-y-4 text-lg">{songs.about}</p>
+          <hr class=" my-5 border">  
+          <LiteYoutube videoid={songs.linkyt} videotitle={songs.title} />
         </div>
       </article>
 
     </Color>
 
 
-  </main>
+  </main> 
 </Layout>

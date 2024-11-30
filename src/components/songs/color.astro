@@ -9,26 +9,24 @@ export interface Props {
 const { imageUrl, className = "", id } = Astro.props;
 ---
 
-<div>
-    <img
-        id="colorThiefImage"
-        src={imageUrl}
-        alt="Imagen para extraer colores"
-        crossorigin="anonymous"
-        style="display: none;"
-    />
-    <section
-        id={id}
-        class={className}
-    >
-        <slot />
-    </section>
-</div>
+<img
+    id="colorThiefImage"
+    src={imageUrl}
+    alt="Imagen para extraer colores"
+    crossorigin="anonymous"
+    style="display: none;"
+/>
+<section
+    id={id}
+    class={className}
+>
+    <slot />
+</section>
 
 <script>
     import { setupColorExtraction } from '../../components/songs/Colorthief2';
     
-    document.addEventListener('DOMContentLoaded', () => {
-        setupColorExtraction('colorThiefImage', 'gradient-container');
+    document.addEventListener('astro:page-load', () => {
+        setupColorExtraction('colorThiefImage', 'gradient-container', 'gradient-container-2');
     });
 </script>
